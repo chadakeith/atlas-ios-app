@@ -1,0 +1,55 @@
+# Fallback project definition for XcodeGen (https://github.com/yonaskolb/XcodeGen).
+# The checked-in SiteLog.xcodeproj is the source of truth; if it ever gets
+# corrupted or you want to regenerate it, run:  brew install xcodegen && xcodegen
+name: SiteLog
+options:
+  bundleIdPrefix: com.atlascarolina
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+targets:
+  SiteLog:
+    type: application
+    platform: iOS
+    sources: [SiteLog]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.atlascarolina.SiteLog
+        MARKETING_VERSION: 0.1.0
+        CURRENT_PROJECT_VERSION: 1
+        GENERATE_INFOPLIST_FILE: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        INFOPLIST_KEY_NSCameraUsageDescription: SiteLog uses the camera to read serial number labels on devices.
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: SiteLog tags each visit with the site you are working at.
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        TARGETED_DEVICE_FAMILY: "1,2"
+  SiteLogTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [SiteLogTests]
+    dependencies:
+      - target: SiteLog
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.atlascarolina.SiteLogTests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  SiteLog:
+    build:
+      targets:
+        SiteLog: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets: [SiteLogTests]
+    archive:
+      config: Release
