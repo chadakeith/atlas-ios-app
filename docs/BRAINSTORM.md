@@ -1,5 +1,14 @@
 # App brainstorm
 
+> **Decision (2026-09-05):** we are building the **Atlas Dashboard companion app**
+> first: a native front end for the existing dashboard.atlassolutions.tech
+> service. It is simpler than any idea below (no data model of its own, no
+> server work), it is useful on day one to the whole Atlas team, and it exercises
+> the same iOS skills (networking, auth, SwiftUI, charts) that a later public app
+> would need. The SiteLog scaffold from the first pass is preserved under the git
+> tag `sitelog-scaffold`.
+
+
 Goal: a genuinely useful iOS app that one person can build, ship to the App Store,
 and keep improving. Scored 1–5 on the things that actually predict an indie app
 getting finished and used.
