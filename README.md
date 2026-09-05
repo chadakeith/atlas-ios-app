@@ -65,7 +65,7 @@ AtlasDashboard/
   Features/     One folder per tab, plus Settings (SettingsView, SignInView)
   Support/      Formatting, StatCard/DeltaBadge, sample Fixtures for previews and tests
 AtlasDashboardTests/
-docs/BRAINSTORM.md   Idea shortlist and why this one
+docs/BRAINSTORM.md   Idea shortlist, why this one, and where the earlier SiteLog scaffold lives (commit 67ed683)
 ```
 
 Sample payloads in `Support/Fixtures.swift` mirror the shapes in

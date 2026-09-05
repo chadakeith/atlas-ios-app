@@ -5,8 +5,8 @@
 > service. It is simpler than any idea below (no data model of its own, no
 > server work), it is useful on day one to the whole Atlas team, and it exercises
 > the same iOS skills (networking, auth, SwiftUI, charts) that a later public app
-> would need. The SiteLog scaffold from the first pass is preserved under the git
-> tag `sitelog-scaffold`.
+> would need. The SiteLog scaffold from the first pass is preserved at commit
+> `67ed683` (`git checkout 67ed683`), tagged locally as `sitelog-scaffold`.
 
 
 Goal: a genuinely useful iOS app that one person can build, ship to the App Store,
