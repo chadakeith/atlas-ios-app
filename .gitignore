@@ -22,3 +22,4 @@ build/
 fastlane/report.xml
 fastlane/screenshots/**/*.png
 fastlane/test_output
+TestResults.xcresult/

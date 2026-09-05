@@ -5,18 +5,24 @@ import Testing
 
 @MainActor
 struct VisitBillingTests {
-    private func makeContext() throws -> ModelContext {
-        let container = try ModelContainer(
+    /// Kept alive for the whole test: a `ModelContext` does not retain its
+    /// container, and inserts into an orphaned context silently do nothing.
+    private let container: ModelContainer
+    private let start = Date(timeIntervalSince1970: 1_700_000_000)
+
+    init() throws {
+        container = try ModelContainer(
             for: Client.self, Visit.self, Device.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)
         )
-        return container.mainContext
     }
 
-    private let start = Date(timeIntervalSince1970: 1_700_000_000)
+    private func makeContext() -> ModelContext {
+        container.mainContext
+    }
 
     @Test func elapsedUsesEndDateWhenPresent() throws {
-        let context = try makeContext()
+        let context = makeContext()
         let client = Client(name: "Acme", hourlyRate: 120)
         context.insert(client)
         let visit = Visit(client: client, startedAt: start)
@@ -28,7 +34,7 @@ struct VisitBillingTests {
     }
 
     @Test func elapsedUsesNowWhileActive() throws {
-        let context = try makeContext()
+        let context = makeContext()
         let visit = Visit(client: nil, startedAt: start)
         context.insert(visit)
 
@@ -37,7 +43,7 @@ struct VisitBillingTests {
     }
 
     @Test func billableSecondsRoundUpToIncrement() throws {
-        let context = try makeContext()
+        let context = makeContext()
         let visit = Visit(client: nil, startedAt: start)
         context.insert(visit)
         visit.endedAt = start.addingTimeInterval(16 * 60)
@@ -48,7 +54,7 @@ struct VisitBillingTests {
     }
 
     @Test func exactMultipleDoesNotRoundUp() throws {
-        let context = try makeContext()
+        let context = makeContext()
         let visit = Visit(client: nil, startedAt: start)
         context.insert(visit)
         visit.endedAt = start.addingTimeInterval(60 * 60)
@@ -57,7 +63,7 @@ struct VisitBillingTests {
     }
 
     @Test func nonBillableVisitsAreFree() throws {
-        let context = try makeContext()
+        let context = makeContext()
         let visit = Visit(client: nil, startedAt: start, isBillable: false)
         context.insert(visit)
         visit.endedAt = start.addingTimeInterval(2 * 60 * 60)
@@ -67,7 +73,7 @@ struct VisitBillingTests {
     }
 
     @Test func amountIsRateTimesRoundedHours() throws {
-        let context = try makeContext()
+        let context = makeContext()
         let visit = Visit(client: nil, startedAt: start)
         context.insert(visit)
         visit.endedAt = start.addingTimeInterval(50 * 60) // rounds to 1 h at 15-min increments
@@ -78,7 +84,7 @@ struct VisitBillingTests {
     }
 
     @Test func amountRoundsToCents() throws {
-        let context = try makeContext()
+        let context = makeContext()
         let visit = Visit(client: nil, startedAt: start)
         context.insert(visit)
         visit.endedAt = start.addingTimeInterval(20 * 60) // exactly a third of an hour
@@ -87,7 +93,7 @@ struct VisitBillingTests {
     }
 
     @Test func clientTotalsSumEveryVisit() throws {
-        let context = try makeContext()
+        let context = makeContext()
         let client = Client(name: "Acme", hourlyRate: 100, billingIncrementMinutes: 15)
         context.insert(client)
 
