@@ -15,9 +15,9 @@ struct FleetView: View {
                 Section {
                     InlineState(state: lifecycle, retry: { await loadLifecycle(force: false) }) { payload in
                         LazyVGrid(columns: three, spacing: 10) {
-                            StatCard(label: "3+ years", value: Formatting.count(payload.total3yr), tint: .yellow)
-                            StatCard(label: "4+ years", value: Formatting.count(payload.total4yr), tint: .orange)
-                            StatCard(label: "5+ years", value: Formatting.count(payload.total5yr), tint: .red)
+                            StatCard(label: "3+ years", value: Formatting.count(payload.total3Yr), tint: .yellow)
+                            StatCard(label: "4+ years", value: Formatting.count(payload.total4Yr), tint: .orange)
+                            StatCard(label: "5+ years", value: Formatting.count(payload.total5Yr), tint: .red)
                         }
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)

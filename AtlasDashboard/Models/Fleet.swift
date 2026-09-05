@@ -1,10 +1,13 @@
 import Foundation
 
 /// `GET /lifecycle-macs`
+///
+/// Property names look odd because `.convertFromSnakeCase` maps `total_3yr` to
+/// `total3Yr` (it capitalizes the first *letter* of each component).
 struct LifecyclePayload: Decodable {
-    let total3yr: Int?
-    let total4yr: Int?
-    let total5yr: Int?
+    let total3Yr: Int?
+    let total4Yr: Int?
+    let total5Yr: Int?
     let tenants: [LifecycleTenant]
 }
 

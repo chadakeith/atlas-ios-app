@@ -61,8 +61,8 @@ struct DecodingTests {
 
     @Test func lifecycleDecodesNumericTierKeys() throws {
         let payload = try Fixtures.decode(LifecyclePayload.self, from: Fixtures.lifecycleJSON)
-        #expect(payload.total3yr == 38)
-        #expect(payload.total5yr == 14)
+        #expect(payload.total3Yr == 38)
+        #expect(payload.total5Yr == 14)
         let atlas = payload.tenants[0]
         #expect(atlas.threeYear?.count == 1)
         #expect(atlas.fourYear?.count == 0)
